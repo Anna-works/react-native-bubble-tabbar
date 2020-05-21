@@ -6,6 +6,7 @@ import {
   AccessibilityStates,
   StyleProp,
   ViewStyle,
+  TextStyle,
   ImageSourcePropType,
 } from "react-native";
 
@@ -20,10 +21,10 @@ export interface IBubbleTabConfig {
 export interface IBubbleTabBar extends BottomTabBarProps {
   tabs: readonly IBubbleTabConfig[];
   activeTabSize?: number;
-  tabStyle: StyleProp<ViewStyle>;
   disabledTabSize?: number;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
+  tabStyle?: StyleProp<TextStyle>;
 }
 
 export interface IRoute {
