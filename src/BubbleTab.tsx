@@ -12,7 +12,9 @@ interface IBubbleTabParent
 export interface IBubbleTab extends IBubbleTabParent {
   activeTabSize: number;
   disabledTabSize: number;
-  tabName: string;
+  tabName:
+    | string
+    | ((props: { focused: boolean; color: string }) => React.ReactNode);
   isActive: boolean;
   testID?: string;
   icon: () => React.ReactNode;
