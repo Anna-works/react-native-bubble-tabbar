@@ -1,41 +1,33 @@
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useEffect, useState } from "react";
 import { Animated, GestureResponderEvent } from "react-native";
 import { useAnimation } from "react-native-animation-hooks";
 import styled, { css } from "styled-components/native";
 
-import {
-  IAccessibility,
-  IBubbleTabConfig,
-  TIconRenderer,
-  TBubbleTabBarIcon,
-} from "./types";
+import { IAccessibility, IBubbleTabConfig } from "./types";
 
 interface IBubbleTabParent
-  extends Omit<IBubbleTabConfig, "name" | "activeIcon">,
+  extends Omit<IBubbleTabConfig, "name" | "activeIcon" | "disabledIcon">,
     IAccessibility {}
 
 export interface IBubbleTab extends IBubbleTabParent {
-  iconRenderer: TIconRenderer;
   activeTabSize: number;
   disabledTabSize: number;
-  tabName: string | ((props: { focused: boolean; color: string }) => ReactNode);
-  icon: TBubbleTabBarIcon;
+  tabName: string;
   isActive: boolean;
   testID?: string;
+  icon: () => React.ReactNode;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
 }
 
 const BubbleTab: React.FC<IBubbleTab> = ({
-  iconRenderer,
   activeTabSize,
   disabledTabSize,
   tabName,
-  icon,
   activeColor,
-  inactiveColor = "#e0e0e0",
   activeBackgroundColor,
   isActive,
+  icon,
   onPress,
   onLongPress,
   accessibilityRole,
@@ -64,9 +56,7 @@ const BubbleTab: React.FC<IBubbleTab> = ({
 
   useEffect(() => setIsOpenAnimation(isActive), [isActive]);
 
-  const color = isActive ? activeColor : inactiveColor;
   const backgroundColor = isActive ? activeBackgroundColor : "transparent";
-  const renderedIcon = iconRenderer({ icon, color });
 
   return (
     <TouchableBubbleTabContainer
@@ -81,11 +71,11 @@ const BubbleTab: React.FC<IBubbleTab> = ({
         backgroundColor={backgroundColor}
         style={{ width: tabWidth }}
       >
-        {renderedIcon}
+        {icon()}
         {isActive && (
           <BubbleTabLabel
             numberOfLines={1}
-            color={color}
+            color={activeColor}
             style={{ opacity: labelOpacity }}
           >
             {tabName}

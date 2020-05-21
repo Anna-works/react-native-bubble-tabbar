@@ -2,18 +2,7 @@ import * as React from "react";
 import { ImageSourcePropType } from "react-native";
 import styled from "styled-components/native";
 
-import { TIconRenderer, IIconRenderer } from "./types";
 import { screenWidth } from "./dimensions";
-
-export const defaultIconRenderer: TIconRenderer = ({ icon }: IIconRenderer) => {
-  const isImageSource = (icon: any): icon is ImageSourcePropType => icon;
-
-  if (!isImageSource(icon)) {
-    return null;
-  }
-
-  return <Icon source={icon} />;
-};
 
 const Icon = styled.Image.attrs({
   resizeMode: "contain",

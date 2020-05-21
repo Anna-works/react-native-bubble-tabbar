@@ -6,14 +6,12 @@ import BubbleTab from "./BubbleTab";
 import { IBubbleTabBar, IRoute } from "./types";
 
 import {
-  defaultIconRenderer,
   defaultActiveTabSize,
   defaultDisabledTabSize,
   defaultBackgroundColor,
 } from "./constants";
 
 const BubbleTabBar: React.FC<IBubbleTabBar> = ({
-  iconRenderer = defaultIconRenderer,
   activeTabSize = defaultActiveTabSize,
   disabledTabSize = defaultDisabledTabSize,
   backgroundColor = defaultBackgroundColor,
@@ -84,7 +82,6 @@ const BubbleTabBar: React.FC<IBubbleTabBar> = ({
           return (
             <BubbleTab
               key={`tab-${tabName}`}
-              iconRenderer={iconRenderer}
               activeTabSize={activeTabSize}
               disabledTabSize={disabledTabSize}
               isActive={isActive}

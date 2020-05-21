@@ -9,27 +9,16 @@ import {
   ImageSourcePropType,
 } from "react-native";
 
-export type TBubbleTabBarIcon = string | IconDefinition | ImageSourcePropType;
-
 export interface IBubbleTabConfig {
-  activeColor: string;
-  inactiveColor?: string;
-  activeBackgroundColor: string;
   name?: string;
-  activeIcon: TBubbleTabBarIcon;
-  disabledIcon?: TBubbleTabBarIcon;
+  activeColor: string;
+  activeBackgroundColor: string;
+  activeIcon: () => React.ReactNode;
+  disabledIcon: () => React.ReactNode;
 }
-
-export interface IIconRenderer {
-  icon: TBubbleTabBarIcon;
-  color?: string;
-}
-
-export type TIconRenderer = React.FC<IIconRenderer>;
 
 export interface IBubbleTabBar extends BottomTabBarProps {
   tabs: readonly IBubbleTabConfig[];
-  iconRenderer?: TIconRenderer;
   activeTabSize?: number;
   disabledTabSize?: number;
   backgroundColor?: string;
