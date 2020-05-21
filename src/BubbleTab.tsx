@@ -3,7 +3,7 @@ import {
   Animated,
   GestureResponderEvent,
   StyleProp,
-  ViewStyle,
+  TextStyle,
 } from "react-native";
 import { useAnimation } from "react-native-animation-hooks";
 import styled, { css } from "styled-components/native";
@@ -20,7 +20,7 @@ export interface IBubbleTab extends IBubbleTabParent {
   tabName:
     | string
     | ((props: { focused: boolean; color: string }) => React.ReactNode);
-  tabStyle: StyleProp<ViewStyle>;
+  tabStyle: StyleProp<TextStyle>;
   isActive: boolean;
   testID?: string;
   icon: React.ReactNode;
