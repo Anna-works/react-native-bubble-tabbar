@@ -17,6 +17,7 @@ const BubbleTabBar: React.FC<IBubbleTabBar> = ({
   backgroundColor = defaultBackgroundColor,
   tabs,
   style,
+  tabStyle,
   state,
   descriptors,
   navigation,
@@ -89,6 +90,7 @@ const BubbleTabBar: React.FC<IBubbleTabBar> = ({
               activeColor={activeColor}
               activeBackgroundColor={activeBackgroundColor}
               tabName={tabName}
+              tabStyle={tabStyle}
               onPress={onPress}
               onLongPress={onLongPress}
               accessibilityRole="button"

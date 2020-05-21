@@ -13,13 +13,14 @@ export interface IBubbleTabConfig {
   name?: string;
   activeColor: string;
   activeBackgroundColor: string;
-  activeIcon: () => React.ReactNode;
-  disabledIcon: () => React.ReactNode;
+  activeIcon: React.ReactNode;
+  disabledIcon: React.ReactNode;
 }
 
 export interface IBubbleTabBar extends BottomTabBarProps {
   tabs: readonly IBubbleTabConfig[];
   activeTabSize?: number;
+  tabStyle: StyleProp<ViewStyle>;
   disabledTabSize?: number;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;

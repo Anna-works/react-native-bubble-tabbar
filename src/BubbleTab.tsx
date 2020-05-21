@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Animated, GestureResponderEvent } from "react-native";
+import {
+  Animated,
+  GestureResponderEvent,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import { useAnimation } from "react-native-animation-hooks";
 import styled, { css } from "styled-components/native";
 
@@ -15,9 +20,10 @@ export interface IBubbleTab extends IBubbleTabParent {
   tabName:
     | string
     | ((props: { focused: boolean; color: string }) => React.ReactNode);
+  tabStyle: StyleProp<ViewStyle>;
   isActive: boolean;
   testID?: string;
-  icon: () => React.ReactNode;
+  icon: React.ReactNode;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
 }
@@ -26,6 +32,7 @@ const BubbleTab: React.FC<IBubbleTab> = ({
   activeTabSize,
   disabledTabSize,
   tabName,
+  tabStyle,
   activeColor,
   activeBackgroundColor,
   isActive,
@@ -73,12 +80,12 @@ const BubbleTab: React.FC<IBubbleTab> = ({
         backgroundColor={backgroundColor}
         style={{ width: tabWidth }}
       >
-        {icon()}
+        {icon}
         {isActive && (
           <BubbleTabLabel
             numberOfLines={1}
             color={activeColor}
-            style={{ opacity: labelOpacity }}
+            style={[{ opacity: labelOpacity }, tabStyle]}
           >
             {tabName}
           </BubbleTabLabel>
