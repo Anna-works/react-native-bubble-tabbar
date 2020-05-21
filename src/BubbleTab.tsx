@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Animated, GestureResponderEvent } from 'react-native';
-import { useAnimation } from 'react-native-animation-hooks';
-import styled, { css } from 'styled-components/native';
+import React, { useEffect, useState, ReactNode } from "react";
+import { Animated, GestureResponderEvent } from "react-native";
+import { useAnimation } from "react-native-animation-hooks";
+import styled, { css } from "styled-components/native";
 
 import {
   IAccessibility,
   IBubbleTabConfig,
   TIconRenderer,
   TBubbleTabBarIcon,
-} from './types';
+} from "./types";
 
-interface IBubbleTabParent extends
-  Omit<IBubbleTabConfig, 'name' | 'activeIcon'>, IAccessibility {}
+interface IBubbleTabParent
+  extends Omit<IBubbleTabConfig, "name" | "activeIcon">,
+    IAccessibility {}
 
 export interface IBubbleTab extends IBubbleTabParent {
-  iconRenderer: TIconRenderer,
+  iconRenderer: TIconRenderer;
   activeTabSize: number;
   disabledTabSize: number;
-  tabName: string;
+  tabName: string | ((props: { focused: boolean; color: string }) => ReactNode);
   icon: TBubbleTabBarIcon;
   isActive: boolean;
   testID?: string;
@@ -32,7 +33,7 @@ const BubbleTab: React.FC<IBubbleTab> = ({
   tabName,
   icon,
   activeColor,
-  inactiveColor = '#e0e0e0',
+  inactiveColor = "#e0e0e0",
   activeBackgroundColor,
   isActive,
   onPress,
@@ -45,7 +46,7 @@ const BubbleTab: React.FC<IBubbleTab> = ({
   const [isOpenAnimation, setIsOpenAnimation] = useState(isActive);
 
   const tabWidth = useAnimation({
-    type: 'timing',
+    type: "timing",
     initialValue: isActive ? activeTabSize : disabledTabSize,
     toValue: isOpenAnimation ? activeTabSize : 75,
     duration: 300,
@@ -53,7 +54,7 @@ const BubbleTab: React.FC<IBubbleTab> = ({
   });
 
   const labelOpacity = useAnimation({
-    type: 'timing',
+    type: "timing",
     initialValue: isActive ? 1 : 0,
     toValue: isOpenAnimation ? 1 : 0,
     duration: isOpenAnimation ? 150 : 100,
@@ -61,13 +62,10 @@ const BubbleTab: React.FC<IBubbleTab> = ({
     useNativeDriver: true,
   });
 
-  useEffect(
-    () => setIsOpenAnimation(isActive),
-    [isActive],
-  );
+  useEffect(() => setIsOpenAnimation(isActive), [isActive]);
 
   const color = isActive ? activeColor : inactiveColor;
-  const backgroundColor = isActive ? activeBackgroundColor : 'transparent';
+  const backgroundColor = isActive ? activeBackgroundColor : "transparent";
   const renderedIcon = iconRenderer({ icon, color });
 
   return (
@@ -109,7 +107,9 @@ interface IAnimatedBubbleTabWrapper {
   backgroundColor: string;
 }
 
-const AnimatedBubbleTabWrapper = styled(Animated.View)<IAnimatedBubbleTabWrapper>`
+const AnimatedBubbleTabWrapper = styled(Animated.View)<
+  IAnimatedBubbleTabWrapper
+>`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -117,9 +117,11 @@ const AnimatedBubbleTabWrapper = styled(Animated.View)<IAnimatedBubbleTabWrapper
   padding: 10px 18px;
   border-radius: 20px;
 
-  ${({ backgroundColor }) => backgroundColor && css`
-    background-color: ${backgroundColor};
-  `};
+  ${({ backgroundColor }) =>
+    backgroundColor &&
+    css`
+      background-color: ${backgroundColor};
+    `};
 `;
 
 interface IBubbleTabLabel {
@@ -133,7 +135,9 @@ const BubbleTabLabel = styled(Animated.Text)<IBubbleTabLabel>`
   height: auto;
   font-weight: bold;
 
-  ${({ color }) => color && css`
-    color: ${color};
-  `};
+  ${({ color }) =>
+    color &&
+    css`
+      color: ${color};
+    `};
 `;

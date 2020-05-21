@@ -1,13 +1,13 @@
-import { IconDefinition } from '@fortawesome/fontawesome-common-types';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
+import { IconDefinition } from "@fortawesome/fontawesome-common-types";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import * as React from "react";
 import {
   AccessibilityRole,
   AccessibilityStates,
   StyleProp,
   ViewStyle,
   ImageSourcePropType,
-} from 'react-native';
+} from "react-native";
 
 export type TBubbleTabBarIcon = string | IconDefinition | ImageSourcePropType;
 
